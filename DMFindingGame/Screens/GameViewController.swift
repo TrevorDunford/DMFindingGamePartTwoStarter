@@ -50,6 +50,7 @@ class GameViewController: UIViewController {
     @IBAction func letterButtonTapped(_ sender: UIButton) {
         updateUI()
         gameBrain.letterSelected(selectedLetter: sender.titleLabel!.text!)
+       
     }
     
     func configureTimer() {
@@ -61,6 +62,7 @@ class GameViewController: UIViewController {
         targetLetterLabel.text = gameBrain.targetLetter
         scoreLabel.text = "Score: \(gameBrain.score)"
         secondsLabel.text = "Seconds: \(gameBrain.secondsRemaining)"
+        
         
         for (index, button) in letterButtons.enumerated() {
             button.setTitle(gameBrain.randomLetters[index], for: .normal)

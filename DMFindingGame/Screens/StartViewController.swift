@@ -18,13 +18,17 @@ class StartViewController: UIViewController {
     @IBOutlet weak var highScoreLabel: UILabel!
     
     var gameBrain = GameBrain.shared
-    
+    var coreDataManager = CoreDataManager.shared
     /**
      3.1 Update the `highScoreLabel`'s text to be the high score from the game brain.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            highScoreLabel.text = "High Score: \(gameBrain.highScore)"
+        let savedScore = gameBrain.score
+        if savedScore > 0 {
+            coreDataManager.addScore(score: savedScore)
+        }
+        highScoreLabel.text = "High Score: \(coreDataManager.calculateHighScore())"
     }
     
     /**
@@ -36,5 +40,10 @@ class StartViewController: UIViewController {
             self.navigationController?.pushViewController(gameVC, animated: true)
         }
     
+    @IBAction func scoresScreen (sender: UIButton ) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let scoresVC = storyboard.instantiateViewController(withIdentifier: "ScoresViewController")
+        present(scoresVC, animated: true)
+    }
 }
 
